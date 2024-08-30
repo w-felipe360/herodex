@@ -31,7 +31,6 @@ HeroDex é uma aplicação front-end desenvolvida em Next.js com TypeScript, que
    ```bash
    git clone https://github.com/w-felipe360/herodex.git
 
-
 2. **Obtenha as chaves da API:**
     É mandatório ter uma conta na Disney para fazer login no sit da marvel e obter as chaves
     https://developer.marvel.com/account
