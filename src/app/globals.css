@@ -2,3 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-image: linear-gradient(180deg, rgba(50,50,50,0.96) 7.5%, rgba(20,20,20,0.96) 83.1%);
+  font-family: 'Marvel', sans-serif;
+}
