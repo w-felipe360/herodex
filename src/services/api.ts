@@ -2,8 +2,8 @@ import axios from "axios";
 import md5 from "md5";
 
 const baseUrl = 'http://gateway.marvel.com/v1/public';
-const publicKey = process.env.NEXT_PUBLIC_PUBLIC_KEY!;
-const privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY!;
+const publicKey = process.env.PUBLIC_KEY!;
+const privateKey = process.env.PRIVATE_KEY!;
 const ts = Number(new Date());
 const hash = md5(ts + privateKey + publicKey);
 

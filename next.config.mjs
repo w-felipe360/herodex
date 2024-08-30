@@ -4,8 +4,8 @@ const nextConfig = {
     domains: ['i.annihil.us', 'wallpapers.com'],
   },
   env: {
-    NEXT_PUBLIC_PUBLIC_KEY: process.env.NEXT_PUBLIC_PUBLIC_KEY,
-    NEXT_PUBLIC_PRIVATE_KEY: process.env.NEXT_PUBLIC_PRIVATE_KEY,
+    PUBLIC_KEY: process.env.PUBLIC_KEY,
+    PRIVATE_KEY: process.env.PRIVATE_KEY,
   },
 };
 
