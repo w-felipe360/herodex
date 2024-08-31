@@ -4,6 +4,8 @@ import { useState } from "react";
 import Heroes from "../components/Heroes";
 import SearchFilters from "../components/SearchFilters";
 import Modal from "../components/Modal";
+import Image from "next/image";
+import { FaSearch } from "react-icons/fa";
 
 interface ResponseData {
   id: string;
@@ -25,11 +27,13 @@ const HeroList: React.FC = () => {
   const [minSeries, setMinSeries] = useState(0);
   const [showFilters, setShowFilters] = useState(false);
   const [selectedHero, setSelectedHero] = useState<ResponseData | null>(null);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
 
   const limit = 10;
 
   const fetchHeroes = async (page: number, search: string = "") => {
     setLoading(true);
+    setIsInitialLoad(false); // Set to false after the first search
     const offset = (page - 1) * limit;
     try {
       const response = await api.get('/characters', {
@@ -87,38 +91,40 @@ const HeroList: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen">
-      <form className="flex flex-row mb-4 mt-8" onSubmit={handleSearchSubmit}>
+    <div className="flex flex-col items-center min-h-screen p-4">
+      <form className="flex items-center mb-4 mt-8 w-full max-w-2xl" onSubmit={handleSearchSubmit}>
         <input
           type="text"
           placeholder="Search your hero (or villain)"
           value={search}
           onChange={handleSearchChange}
-          className="p-2 border border-gray-300 rounded-l mb-2"
+          className="p-3 border border-gray-300 rounded-full w-full flex-grow"
         />
         <button
           type="submit"
-          className="px-4 py-2 bg-blue-500 text-white rounded-r hover:bg-blue-600 transition-colors duration-300 mb-2"
+          className="ml-2 p-3 bg-blue-500 text-white rounded-full shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300"
         >
-          Search
+          <FaSearch />
         </button>
       </form>
       <button
         onClick={() => setShowFilters(!showFilters)}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-300 mb-4"
+        className="px-6 py-3 bg-gradient-to-r from-blue-700 to-blue-900 text-white rounded-full shadow-lg hover:shadow-xl transition-transform transform hover:scale-105 duration-300 mb-4"
       >
         {showFilters ? "Hide Filters" : "Show Filters"}
       </button>
       {showFilters && (
-        <SearchFilters
-          hasDescription={hasDescription}
-          setHasDescription={setHasDescription}
-          minComics={minComics}
-          setMinComics={setMinComics}
-          minSeries={minSeries}
-          setMinSeries={setMinSeries}
-          handleSearchSubmit={handleSearchSubmit}
-        />
+        <div className="w-full max-w-2xl mb-4">
+          <SearchFilters
+            hasDescription={hasDescription}
+            setHasDescription={setHasDescription}
+            minComics={minComics}
+            setMinComics={setMinComics}
+            minSeries={minSeries}
+            setMinSeries={setMinSeries}
+            handleSearchSubmit={handleSearchSubmit}
+          />
+        </div>
       )}
       {loading ? (
         <div className="spinner-container flex justify-center items-center">
@@ -129,7 +135,7 @@ const HeroList: React.FC = () => {
           <div className={`hero-list flex justify-center items-center flex-wrap ${heroes.length === 0 ? 'mb-8' : ''}`}>
             {heroes.length > 0 ? (
               heroes.map(hero => (
-                <div key={hero.id} onClick={() => handleHeroClick(hero)}>
+                <div key={hero.id} onClick={() => handleHeroClick(hero)} className="hero-card m-4 rounded-lg overflow-hidden">
                   <Heroes
                     id={hero.id}
                     name={hero.name}
@@ -139,7 +145,16 @@ const HeroList: React.FC = () => {
                 </div>
               ))
             ) : (
-              <p>No heroes found.</p>
+              <div className="flex flex-col items-center mt-8">
+                {isInitialLoad ? (
+                  <div className="flex flex-col items-center justify-center h-96">
+                    <Image src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Marvel_Logo.svg" alt="No results" width={256} height={256} className="w-64 h-64 mb-4" />
+                    <p className="text-gray-500 text-2xl md:text-4xl mb-4 text-center">Search your heroes (or villains)</p>
+                  </div>
+                ) : (
+                  <p className="text-gray-500 text-lg mb-4">No heroes found. Try adjusting your search or filters.</p>
+                )}
+              </div>
             )}
           </div>
           <div className="pagination flex items-center mt-4 space-x-2 mb-8">
@@ -176,7 +191,7 @@ const HeroList: React.FC = () => {
           display: flex;
           justify-content: center;
           align-items: center;
-          background-color: rgba(255, 255, 255, 0.8);
+          background-color: rgba(255, 255, 255, 0.3);
           z-index: 9999;
         }
         .spinner {
@@ -189,6 +204,9 @@ const HeroList: React.FC = () => {
         }
         @keyframes spin {
           to { transform: rotate(360deg); }
+        }
+        .hero-card {
+          margin: 6px;
         }
       `}</style>
     </div>

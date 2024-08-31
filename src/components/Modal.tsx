@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
+import { FaTimes } from "react-icons/fa";
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,11 +19,23 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, hero }) => {
 
   if (!isOpen) return null;
 
+  const handleBackgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  };
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white rounded-lg shadow-lg transform transition-all duration-500 ease-out opacity-0 scale-75 animate-fadeInZoom w-96 h-auto flex flex-col items-center justify-center p-4">
-        <button onClick={onClose} className="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
-          X
+    <div
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+      onClick={handleBackgroundClick}
+    >
+      <div className="bg-white rounded-2xl shadow-lg transform transition-all duration-500 ease-out opacity-0 scale-75 animate-fadeInZoom w-96 h-auto flex flex-col items-center justify-center p-4">
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-500 hover:text-red-500 w-10 h-10 flex items-center justify-center rounded-full border border-gray-300 hover:border-red-500"
+        >
+          <FaTimes className="text-xl" />
         </button>
         <div className="relative w-32 h-32 mb-4">
           {!imageLoaded && (

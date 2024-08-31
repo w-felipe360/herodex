@@ -1,8 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Marvel:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  background-image: linear-gradient(180deg, rgba(50,50,50,0.96) 7.5%, rgba(20,20,20,0.96) 83.1%);
-  font-family: 'Marvel', sans-serif;
+  background-image: linear-gradient(180deg, rgba(30,30,30,0.96) 7.5%, rgba(10,10,10,0.96) 83.1%);
+  font-family: "Marvel", sans-serif;
+  font-size: 26px;
 }

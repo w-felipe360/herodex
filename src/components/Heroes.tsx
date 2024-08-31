@@ -57,7 +57,7 @@ const Heroes: React.FC<HeroCardProps> = ({ id, name, description, thumbnail }) =
           transform: scale(1.1);
         }
         .image-container:hover .image-overlay {
-          opacity: 0.8;
+          opacity: 0.5; 
         }
       `}</style>
     </div>
