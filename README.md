@@ -17,7 +17,7 @@ HeroDex é uma aplicação front-end desenvolvida em Next.js com TypeScript, que
 
 ### Deploy
 
-- **Vercel**: Plataforma de deploy utilizada para hospedar a aplicação: https://herodex-2.vercel.app/
+- **Vercel**: Plataforma de deploy utilizada para hospedar a aplicação: https://herodex-w-felipe360s-projects.vercel.app/
 
 
 ### Pré-requisitos
